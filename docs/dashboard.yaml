@@ -1,0 +1,56 @@
+# Find My style family view.
+# Settings -> Dashboards -> your dashboard -> ✏ -> ⋮ Raw editor -> add this view.
+# Replace the person entities and sensor names with your own.
+
+title: Family
+path: family
+icon: mdi:map-marker-account
+cards:
+  - type: map
+    entities:
+      - person.igor
+      - person.mia
+      - person.evy
+    hours_to_show: 4
+    dark_mode: true
+    theme_mode: auto
+
+  - type: entities
+    title: Who is where
+    entities:
+      - entity: person.igor
+      - entity: sensor.igor_distance_home
+        name: "↳ distance"
+      - entity: sensor.igor_eta_home
+        name: "↳ ETA home"
+      - type: divider
+      - entity: person.mia
+      - entity: sensor.mia_distance_home
+        name: "↳ distance"
+      - entity: sensor.mia_eta_home
+        name: "↳ ETA home"
+
+  - type: entities
+    title: Sharing
+    entities:
+      - entity: sensor.location_share_active_shares
+        name: Active share links
+    footer:
+      type: buttons
+      entities:
+        - entity: sensor.location_share_active_shares
+          name: Revoke all
+          tap_action:
+            action: call-service
+            service: location_share.revoke_all_shares
+
+  # One-tap "on my way home" with a live link
+  - type: button
+    name: On my way home
+    icon: mdi:car-arrow-right
+    tap_action:
+      action: call-service
+      service: location_share.on_my_way
+      data:
+        entity_id: person.igor
+        notify_target: mobile_app_family

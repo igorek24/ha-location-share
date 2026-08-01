@@ -1,0 +1,14 @@
+{
+  "domain": "location_share",
+  "name": "Location Share",
+  "codeowners": ["@igorek24"],
+  "config_flow": true,
+  "dependencies": ["http"],
+  "documentation": "https://github.com/igorek24/ha-location-share",
+  "integration_type": "service",
+  "iot_class": "local_push",
+  "issue_tracker": "https://github.com/igorek24/ha-location-share/issues",
+  "loggers": ["custom_components.location_share"],
+  "requirements": [],
+  "version": "0.1.0"
+}

@@ -1,0 +1,86 @@
+blueprint:
+  name: Location Share — arrival & departure alerts
+  description: >-
+    Notify when someone arrives at or leaves a zone, with optional quiet
+    hours and a per-person cooldown. Create one automation per person.
+  domain: automation
+  input:
+    person:
+      name: Person
+      selector:
+        entity:
+          filter:
+            - domain: [person, device_tracker]
+    zone_entity:
+      name: Zone to watch
+      selector:
+        entity:
+          filter:
+            - domain: zone
+    notify_service:
+      name: Notify service
+      description: "e.g. notify.mobile_app_igor or notify.family"
+      selector:
+        text:
+    notify_arrival:
+      name: Notify on arrival
+      default: true
+      selector:
+        boolean:
+    notify_departure:
+      name: Notify on departure
+      default: true
+      selector:
+        boolean:
+    quiet_start:
+      name: Quiet hours start
+      default: "22:00:00"
+      selector:
+        time:
+    quiet_end:
+      name: Quiet hours end
+      default: "07:00:00"
+      selector:
+        time:
+
+mode: queued
+max: 10
+
+variables:
+  person_entity: !input person
+  zone_ent: !input zone_entity
+  zone_name: "{{ state_attr(zone_ent, 'friendly_name') or zone_ent.split('.')[1] | replace('_',' ') | title }}"
+  who: "{{ state_attr(person_entity, 'friendly_name') or person_entity.split('.')[1] | replace('_',' ') | title }}"
+  do_arrival: !input notify_arrival
+  do_departure: !input notify_departure
+
+trigger:
+  - platform: zone
+    entity_id: !input person
+    zone: !input zone_entity
+    event: enter
+    id: arrive
+  - platform: zone
+    entity_id: !input person
+    zone: !input zone_entity
+    event: leave
+    id: leave
+
+condition:
+  - condition: template
+    value_template: >-
+      {{ (trigger.id == 'arrive' and do_arrival) or
+         (trigger.id == 'leave' and do_departure) }}
+  - condition: not
+    conditions:
+      - condition: time
+        after: !input quiet_start
+        before: !input quiet_end
+
+action:
+  - variables:
+      verb: "{{ 'arrived at' if trigger.id == 'arrive' else 'left' }}"
+  - service: !input notify_service
+    data:
+      title: "{{ who }}"
+      message: "{{ who }} {{ verb }} {{ zone_name }}."

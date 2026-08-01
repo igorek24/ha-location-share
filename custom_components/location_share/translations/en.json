@@ -1,0 +1,34 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Location Share",
+        "description": "Pick the people to track. The base URL is used to build share links, so it must be reachable by whoever you send links to.",
+        "data": {
+          "entities": "People / device trackers",
+          "base_url": "Public base URL (e.g. https://ha.example.com)",
+          "home_zone": "Home zone",
+          "default_share_minutes": "Default share duration (minutes)",
+          "default_speed_kmh": "Fallback speed for ETA (km/h)"
+        }
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "Location Share is already configured"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Location Share options",
+        "data": {
+          "entities": "People / device trackers",
+          "base_url": "Public base URL",
+          "home_zone": "Home zone",
+          "default_share_minutes": "Default share duration (minutes)",
+          "default_speed_kmh": "Fallback speed for ETA (km/h)"
+        }
+      }
+    }
+  }
+}

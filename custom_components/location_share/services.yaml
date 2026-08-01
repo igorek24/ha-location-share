@@ -1,0 +1,84 @@
+create_share:
+  name: Create share link
+  description: >-
+    Generate a temporary public link showing someone's live location, like
+    Apple's "Share My Location". Returns the URL in the service response.
+  fields:
+    entity_id:
+      name: Person or device tracker
+      required: true
+      selector:
+        entity:
+          domain: [person, device_tracker]
+    minutes:
+      name: Valid for (minutes)
+      description: How long the link works before expiring.
+      selector:
+        number: { min: 5, max: 10080, unit_of_measurement: min, mode: box }
+    label:
+      name: Label
+      description: Name shown on the page. Defaults to the entity's name.
+      selector: { text: }
+    precision:
+      name: Precision
+      description: >-
+        "exact" shows the real position; "approximate" fuzzes it by about
+        500 m for when you want to share a neighbourhood, not an address.
+      selector:
+        select:
+          options: [exact, approximate]
+    notify_target:
+      name: Notify service
+      description: Optional notify service (e.g. mobile_app_igor) to send the link to.
+      selector: { text: }
+    message:
+      name: Message
+      description: Custom message for the notification.
+      selector: { text: }
+
+revoke_share:
+  name: Revoke share
+  description: Invalidate a share link immediately. Give either a token or an entity.
+  fields:
+    token:
+      name: Token
+      selector: { text: }
+    entity_id:
+      name: Person
+      description: Revoke every active share for this entity.
+      selector:
+        entity:
+          domain: [person, device_tracker]
+
+revoke_all_shares:
+  name: Revoke all shares
+  description: Invalidate every active share link.
+
+on_my_way:
+  name: On my way
+  description: >-
+    Announce that someone is heading home, with their ETA, optionally
+    attaching a live share link that expires shortly after arrival.
+  fields:
+    entity_id:
+      name: Person
+      required: true
+      selector:
+        entity:
+          domain: [person, device_tracker]
+    notify_target:
+      name: Notify service
+      selector: { text: }
+    message:
+      name: Message
+      description: Overrides the generated "on the way, N min away" text.
+      selector: { text: }
+    include_link:
+      name: Include live link
+      default: true
+      selector: { boolean: }
+    minutes:
+      name: Link lifetime (minutes)
+      description: Defaults to the ETA plus a 15 minute buffer.
+      selector:
+        number: { min: 5, max: 10080, unit_of_measurement: min, mode: box }
