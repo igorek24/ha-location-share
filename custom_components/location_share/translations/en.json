@@ -3,10 +3,10 @@
     "step": {
       "user": {
         "title": "Location Share",
-        "description": "Pick the people to track. The base URL is used to build share links, so it must be reachable by whoever you send links to.",
+        "description": "Pick the people to track. The base URL is used to build share links, so it must be the address that people you share with can reach.",
         "data": {
           "entities": "People / device trackers",
-          "base_url": "Public base URL (e.g. https://ha.example.com)",
+          "base_url": "Public base URL of this Home Assistant",
           "home_zone": "Home zone",
           "default_share_minutes": "Default share duration (minutes)",
           "default_speed_kmh": "Fallback speed for ETA (km/h)"
@@ -23,7 +23,7 @@
         "title": "Location Share options",
         "data": {
           "entities": "People / device trackers",
-          "base_url": "Public base URL",
+          "base_url": "Public base URL of this Home Assistant",
           "home_zone": "Home zone",
           "default_share_minutes": "Default share duration (minutes)",
           "default_speed_kmh": "Fallback speed for ETA (km/h)"
