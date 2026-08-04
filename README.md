@@ -1,5 +1,12 @@
 # Location Share
 
+[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=igorek24&repository=ha-location-share&category=integration)
+[![Open your Home Assistant instance and start setting up a new integration.](https://my.home-assistant.io/badges/config_flow_start.svg)](https://my.home-assistant.io/redirect/config_flow_start/?domain=location_share)
+
+[![GitHub release](https://img.shields.io/github/v/release/igorek24/ha-location-share?style=flat-square)](https://github.com/igorek24/ha-location-share/releases)
+[![License](https://img.shields.io/github/license/igorek24/ha-location-share?style=flat-square)](LICENSE)
+[![hacs](https://img.shields.io/badge/HACS-custom-41BDF5.svg?style=flat-square)](https://hacs.xyz)
+
 **Find My style location sharing for Home Assistant.** See where everyone
 is, get arrival and departure alerts, know when someone will be home — and
 send a *temporary, revocable link* so people without Home Assistant can
@@ -40,7 +47,9 @@ number.
 
 ### HACS
 
-HACS → ⋮ → **Custom repositories** → `https://github.com/igorek24/ha-location-share`,
+**Easiest:** click the blue *My Home Assistant* badge at the top of this page — it opens your own Home Assistant and pre-fills this repository as a HACS custom repository. Then Download and restart.
+
+Manually: HACS → ⋮ → **Custom repositories** → `https://github.com/igorek24/ha-location-share`,
 type **Integration** → Download → restart Home Assistant.
 
 ### Manual
